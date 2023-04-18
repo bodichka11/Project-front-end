@@ -3,9 +3,10 @@ import { useState, useEffect } from "react";
 import { Routes, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
+import {ShoppingCart} from 'phosphor-react';
 
 import * as AuthService from "./services/auth.service";
-import IUser from './types/user.type';
+import IUser from "./types/user.type";
 
 import Login from "./components/Login";
 import Register from "./components/Register";
@@ -16,6 +17,8 @@ import BoardModerator from "./components/BoardModerator";
 import BoardAdmin from "./components/BoardAdmin";
 
 import EventBus from "./common/EventBus";
+import Shop from "./components/Shop";
+import Cart from "./components/Cart";
 
 const App: React.FC = () => {
   const [showModeratorBoard, setShowModeratorBoard] = useState<boolean>(false);
@@ -49,15 +52,23 @@ const App: React.FC = () => {
     <div>
       <nav className="navbar navbar-expand navbar-dark bg-dark">
         <Link to={"/"} className="navbar-brand">
-          bezKoder
+          Mr.Himars Shop
         </Link>
         <div className="navbar-nav mr-auto">
+          
           <li className="nav-item">
-            <Link to={"/home"} className="nav-link">
-              Home
+            <Link to={"/shop"} className="nav-link">
+              Shop
+
             </Link>
           </li>
 
+          <li className="nav-item">
+            <Link to={"/cart"} className="nav-link">
+              <ShoppingCart size = { 32 }/>
+            </Link>
+          </li>
+          
           {showModeratorBoard && (
             <li className="nav-item">
               <Link to={"/mod"} className="nav-link">
@@ -65,7 +76,6 @@ const App: React.FC = () => {
               </Link>
             </li>
           )}
-
           {showAdminBoard && (
             <li className="nav-item">
               <Link to={"/admin"} className="nav-link">
@@ -73,14 +83,8 @@ const App: React.FC = () => {
               </Link>
             </li>
           )}
-
-          {currentUser && (
-            <li className="nav-item">
-              <Link to={"/user"} className="nav-link">
-                User
-              </Link>
-            </li>
-          )}
+          ``
+          
         </div>
 
         {currentUser ? (
@@ -117,6 +121,8 @@ const App: React.FC = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/shop" element={<Shop />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/profile" element={<Profile />} />
